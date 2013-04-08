@@ -4,15 +4,6 @@
 #include "mruby/variable.h"
 #if !defined(DISABLE_VM_BACKTRACE)
 #  include <libunwind.h>
-#  if defined(__x86_64__)
-#    include <libunwind-x86_64.h>
-#  elif defined(__x86__)
-#    include <libunwind-x86.h>
-#  elif defined(__arm__)
-#    include <libunwind-arm.h>
-#  else
-#    error "mruby-backtrace is NOT supported this platform."
-#  endif
 #endif
 
 #define PROC_NAME_MAX 512
@@ -34,7 +25,7 @@ mrb_bt_put_vm(mrb_state *mrb, mrb_value self)
   unw_getcontext(&unw_ctx);
   ret = unw_init_local(&unw_cur, &unw_ctx);
   if (0 > ret) {
-    return;
+    return mrb_nil_value();
   }
 
   fprintf(BT_OUT_FP, "---- [backtrace] ---------------\n");
@@ -45,7 +36,11 @@ mrb_bt_put_vm(mrb_state *mrb, mrb_value self)
     }
     buf[0] = '\0';
     if ((ret = unw_get_proc_name(&unw_cur, buf, sizeof(buf), &off)) == 0) {
+#if defined(__x86_64__)
       fprintf(BT_OUT_FP, "%p <%s + 0x%lx>\n", (void*)ip, buf, off);
+#else
+      fprintf(BT_OUT_FP, "%p <%s + 0x%x>\n", (void*)ip, buf, off);
+#endif
     } else {
       break;
     }
