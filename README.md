@@ -3,9 +3,10 @@ mruby-backtrace
 
 Provide backtrace methods into __mruby__.
 
-#How to build
+# How to build
+----
 
-Edit your '__build_config.rb__'.
+Edit your 'build_config.rb'.
 
 ## mrbgem entry
 
@@ -29,7 +30,8 @@ Edit your '__build_config.rb__'.
     $ make
 
 
-#How to use
+# How to use
+----
 
 ## class Backtrace
 
