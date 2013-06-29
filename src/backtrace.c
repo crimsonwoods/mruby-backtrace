@@ -65,7 +65,7 @@ static mrb_value
 mrb_bt_put_rb(mrb_state *mrb, mrb_value self)
 {
 #if !defined(DISABLE_STDIO)
-  mrb_callinfo *ci = mrb->ci;
+  mrb_callinfo *ci = mrb->c->ci;
   mrb_irep *irep;
   mrb_code *pc;
   char const *filename;
@@ -118,7 +118,7 @@ mrb_bt_put_rb(mrb_state *mrb, mrb_value self)
     } else {
       fprintf(BT_OUT_FP, "\t%s:%d\n", filename, line);
     }
-  } while (--ci >= mrb->cibase);
+  } while (--ci >= mrb->c->cibase);
 #endif
   return mrb_nil_value();
 }
