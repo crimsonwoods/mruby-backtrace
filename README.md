@@ -33,7 +33,9 @@ Edit your 'build_config.rb'.
 # How to use
 ----
 
-## class Backtrace
+__Backtrace is changed the type from Class to Module.__
+
+## module Backtrace
 
     # put backtrace inside of RiteVM (display native C stack frames).
     Backtrace.put_vm
@@ -41,3 +43,5 @@ Edit your 'build_config.rb'.
     # put backtrace inside of Ruby call stack.
     Backtrace.put_rb
 
+    # get backtrace as string array like Ruby's Thread#backtrace.
+    Backtrace.backtrace
