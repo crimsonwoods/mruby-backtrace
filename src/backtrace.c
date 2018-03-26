@@ -96,13 +96,21 @@ callinfo_to_string(mrb_state *mrb, mrb_callinfo *ci)
     }
   }
 
+#ifdef MRB_PROC_TARGET_CLASS
+  if (ci->target_class == MRB_PROC_TARGET_CLASS(ci->proc)) {
+#else
   if (ci->target_class == ci->proc->target_class) {
+#endif
     separator = '.';
   } else {
     separator = '#';
   }
 
+#ifdef MRB_PROC_TARGET_CLASS
+  cname = mrb_class_name(mrb, MRB_PROC_TARGET_CLASS(ci->proc));
+#else
   cname = mrb_class_name(mrb, ci->proc->target_class);
+#endif
   method = mrb_sym2name(mrb, ci->mid);
 
   mrb_value line_no = mrb_fixnum_to_str(mrb, mrb_fixnum_value(line), 10);
