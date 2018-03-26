@@ -206,10 +206,10 @@ mrb_mruby_backtrace_gem_init(mrb_state* mrb)
   struct RClass *mod;
   mod = mrb_define_module(mrb, "Backtrace");
 #if !defined(DISABLE_VM_BACKTRACE)
-  mrb_define_module_function(mrb, mod, "put_vm", mrb_bt_put_vm, ARGS_NONE());
+  mrb_define_module_function(mrb, mod, "put_vm", mrb_bt_put_vm, MRB_ARGS_NONE());
 #endif
-  mrb_define_module_function(mrb, mod, "put_rb", mrb_bt_put_rb, ARGS_NONE());
-  mrb_define_module_function(mrb, mod, "backtrace", mrb_bt_backtrace, ARGS_NONE());
+  mrb_define_module_function(mrb, mod, "put_rb", mrb_bt_put_rb, MRB_ARGS_NONE());
+  mrb_define_module_function(mrb, mod, "backtrace", mrb_bt_backtrace, MRB_ARGS_NONE());
 }
 
 void
